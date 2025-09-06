@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd366a71ea98e5d4d99555b09f9768a5, type: 3}
+  m_Name: rifleMan3
+  m_EditorClassIdentifier: 
+  faceDirection: 1
+  soundDeath: {fileID: 8300000, guid: e55061b1d3cd6ed45ac76d7a180d6f7b, type: 3}
+  soundSpawn: {fileID: 8300000, guid: cab0ac1a882cc30428d179191d7ee9d2, type: 3}
+  damage: 3
+  hp: 1000
+  moveSpeed: 10
+  stopDistance: 3.9
+  range: 8.2
+  ammoCount: 2
+  rateFire: 1
+  reload: 2
+  spawnMessageUnit: rifleMan1

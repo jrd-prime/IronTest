@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c0c6adb95f4bbe85720bd12bd5b230, type: 3}
+  m_Name: SpawnPointsData
+  m_EditorClassIdentifier: 
+  leftEnemyPoint: {fileID: 6894748787614313019, guid: 000848c446452e94ea4a3d1d7828b307, type: 3}
+  rightEnemyPoint: {fileID: 757692576327219638, guid: be8315065123ee14e8da726ce3d90571, type: 3}
+  leftPlayerPoint: {fileID: 3688501360742599127, guid: 6f3cda5438904454bbbd13fcf4c90899, type: 3}
+  rightPlayerPoint: {fileID: 6786194273381857973, guid: d4e0ae2f1820e0c4b8eac4c141c2ee03, type: 3}
+  basePoint: {fileID: 946028330904946271, guid: 0b54a67e3ea560d42b15a3185fab9dc0, type: 3}
