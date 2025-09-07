@@ -1,41 +1,50 @@
-using System;
+using Data.Configs;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unit", menuName = "Config/Unit", order = 1)]
+[CreateAssetMenu(
+    fileName = nameof(UnitConfig),
+    menuName = "Config/" + nameof(UnitConfig)
+)]
 public class UnitConfig : ScriptableObject
 {
-    public string id
-    {
-        get { return name; }
-    }
-
+    public string Id => name;
     public EFaceDirection FaceDirection => faceDirection;
 
-    [Header("Main")] [SerializeField] private EFaceDirection faceDirection = EFaceDirection.NotSet;
+    [Header("Main")]
+    [SerializeField] private EFaceDirection faceDirection = EFaceDirection.NotSet;
 
-    [Header("Sounds")] public AudioClip soundDeath;
+    [Header("Sounds")]
+    public AudioClip soundDeath;
     public AudioClip soundSpawn;
 
-    [Header("Stats")] public float damage = 10;
-   [Range(10, 10000)] public int hp;
+    [Header("Unit")]
+    [Range(10, 10000)] public int hp;
     [Range(1, 10f)] public float moveSpeed;
     [Range(1, 100f)] public float stopDistance;
-    [Range(1, 100f)]public float range;
 
-    [Header("Weapon")] public float ammoCount;
-    public float rateFire;
-    public float reload;
+    [Header("Weapon")]
+    [SerializeField] private WeaponConfig weaponConfig;
+    [SerializeField] private BulletConfig bulletConfig;
 
     [Header("Other")] public string spawnMessageUnit;
+
+    public WeaponConfig Weapon => weaponConfig;
+    public BulletConfig Bullet => bulletConfig;
 
     private void OnValidate()
     {
         if (faceDirection == EFaceDirection.NotSet)
             Debug.LogError("Face direction can't be NotSet. " + name, this);
-        
-        
-        
-        if(range < stopDistance)
-            Debug.LogError("Range can't be less than stop distance. " + name, this);
+
+        if (!weaponConfig)
+            Debug.LogError($"Weapon data is null. {name}", this);
+
+        if (!bulletConfig)
+            Debug.LogError($"Bullet data is null. {name}", this);
+
+        if (stopDistance > weaponConfig.Range)
+            Debug.LogError(
+                $"StopDistance ({stopDistance}) can't be greater than weapon range ({weaponConfig.Range}). {name}",
+                this);
     }
 }

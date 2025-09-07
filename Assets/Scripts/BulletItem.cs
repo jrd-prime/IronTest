@@ -1,23 +1,22 @@
-﻿using System;
+﻿using Data.Configs;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
     public sealed class BulletItem : MonoBehaviour
     {
-        private float speed = 10f; // Скорость снаряда
-        private LayerMask targetMask; // Маска слоёв для целей
-        private float damage = 1f;
+        private float _speed;
+        private LayerMask _targetMask;
+        private float _damage;
         private bool _isInitialized;
         private Vector3 _direction;
 
-        public void Fire(BulletData data, Vector3 direction, LayerMask mask)
+        public void Launch(BulletConfig data, Vector3 direction, LayerMask mask)
         {
-            speed = data.Speed;
-            damage = data.Damage;
+            _speed = data.Speed;
+            _damage = data.Damage;
             _direction = direction;
-            targetMask = mask;
-
+            _targetMask = mask;
             _isInitialized = true;
         }
 
@@ -25,21 +24,19 @@ namespace DefaultNamespace
         {
             if (!_isInitialized)
                 return;
-            transform.position += _direction * (speed * Time.fixedDeltaTime);
+            transform.position += _direction * (_speed * Time.fixedDeltaTime);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log($"<color=green>Collision with {other.gameObject.name}</color>");
-
-            if ((targetMask.value & (1 << other.gameObject.layer)) <= 0)
+            if ((_targetMask.value & (1 << other.gameObject.layer)) <= 0)
                 return;
 
             var damageable = other.GetComponent<IDamageable>();
             if (damageable == null)
                 return;
 
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(_damage);
             Destroy(gameObject);
         }
     }

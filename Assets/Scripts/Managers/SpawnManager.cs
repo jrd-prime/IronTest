@@ -14,12 +14,12 @@ public sealed class SpawnManager : GenericSingletonClass<SpawnManager>
     [Header("Building")] [SerializeField] private BuildingItem baseBuildingPrefab;
     [SerializeField] private BuildingConfig baseConfig;
 
-     [Header("Units")] [SerializeField] private AUnitItem aUnitPrefab;
+     [FormerlySerializedAs("aUnitPrefab")] [Header("Units")] [SerializeField] private UnitItem unitPrefab;
 
     [SerializeField] private UnitConfig playerUnitConfig;
     [SerializeField] private UnitConfig enemyUnitConfig;
 
-    private readonly List<AUnitItem> _units = new();
+    private readonly List<UnitItem> _units = new();
 
     //тут сделать весь контроль
     //  спаун юнитов через кнопки юай, врагов и своих и их инит
@@ -41,17 +41,17 @@ public sealed class SpawnManager : GenericSingletonClass<SpawnManager>
         var spawnPoint = spawnPointsConfig.GetSpawnPoint(unitType, spawnSide);
         var config = unitType == EUnit.Player ? playerUnitConfig : enemyUnitConfig;
 
-        AUnitItem aUnit = CreateUnit(unitType,spawnSide, config, spawnPoint);
+        UnitItem unit = CreateUnit(unitType,spawnSide, config, spawnPoint);
         
         
     }
 
-    private AUnitItem CreateUnit(EUnit unitType, ESpawnSide spawnSide, UnitConfig config, Vector3 spawnPoint)
+    private UnitItem CreateUnit(EUnit unitType, ESpawnSide spawnSide, UnitConfig config, Vector3 spawnPoint)
     {
         var unit = unitType switch
         {
-            EUnit.Player => Instantiate(aUnitPrefab, spawnPoint, Quaternion.identity),
-            EUnit.Enemy => Instantiate(aUnitPrefab, spawnPoint, Quaternion.identity),
+            EUnit.Player => Instantiate(unitPrefab, spawnPoint, Quaternion.identity),
+            EUnit.Enemy => Instantiate(unitPrefab, spawnPoint, Quaternion.identity),
             _ => throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null)
         };
 

@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 4293966025444908523}
-  bullet: {fileID: 1773629876056922963, guid: 80f089e10909c7d47aad95297efe40bb, type: 3}
+  bulletPrefab: {fileID: 1773629876056922963, guid: 80f089e10909c7d47aad95297efe40bb, type: 3}
 --- !u!1 &1706455122122435178
 GameObject:
   m_ObjectHideFlags: 0

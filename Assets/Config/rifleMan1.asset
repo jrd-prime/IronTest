@@ -15,12 +15,9 @@ MonoBehaviour:
   faceDirection: 1
   soundDeath: {fileID: 8300000, guid: e55061b1d3cd6ed45ac76d7a180d6f7b, type: 3}
   soundSpawn: {fileID: 8300000, guid: cab0ac1a882cc30428d179191d7ee9d2, type: 3}
-  damage: 21.82
-  hp: 1120
+  hp: 112
   moveSpeed: 4
-  stopDistance: 7.6
-  range: 7.6
-  ammoCount: 4
-  rateFire: 1
-  reload: 4
+  stopDistance: 4
+  weaponConfig: {fileID: 11400000, guid: e61d08c182a20cc4d8744ed00d6c021e, type: 2}
+  bulletConfig: {fileID: 11400000, guid: 47d613ba4a7cef546912a1cdfbbc99a8, type: 2}
   spawnMessageUnit: rifleMan1
