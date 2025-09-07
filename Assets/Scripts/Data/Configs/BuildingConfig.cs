@@ -1,15 +1,18 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Building", menuName = "Config/Building", order = 1)]
-public class BuildingConfig : ScriptableObject
+namespace Data.Configs
 {
-    public string id
+    [CreateAssetMenu(
+        fileName = nameof(BuildingConfig),
+        menuName = "Config/" + nameof(BuildingConfig)
+    )]
+    public class BuildingConfig : ScriptableObject
     {
-        get
+        public string id
         {
-            return name;
+            get { return name; }
         }
-    } 
-     
-    public int maxHp;
+
+        public int maxHp;
+    }
 }

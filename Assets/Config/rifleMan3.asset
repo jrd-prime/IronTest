@@ -16,8 +16,7 @@ MonoBehaviour:
   soundDeath: {fileID: 8300000, guid: e55061b1d3cd6ed45ac76d7a180d6f7b, type: 3}
   soundSpawn: {fileID: 8300000, guid: cab0ac1a882cc30428d179191d7ee9d2, type: 3}
   hp: 1000
-  moveSpeed: 10
-  stopDistance: 3.9
+  movementConfig: {fileID: 11400000, guid: 046ac8cc8c3960146bb7373fae19a1d9, type: 2}
   weaponConfig: {fileID: 11400000, guid: 7357e698b7a6ca14b8e3e687b778cf6f, type: 2}
   bulletConfig: {fileID: 11400000, guid: 921338d7124ffdd4e8d8c8b325c70271, type: 2}
-  spawnMessageUnit: rifleMan1
+  spawnMessageUnit: rifleMan3

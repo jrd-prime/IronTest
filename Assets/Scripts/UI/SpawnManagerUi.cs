@@ -1,70 +1,73 @@
 using System;
 using System.Collections.Generic;
+using Data.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class SpawnManagerUi : MonoBehaviour
+namespace UI
 {
-    public event Action<EUnit, ESpawnSide> OnUnitSpawn = delegate { };
-
-    [Header("Spawn Buttons")] [SerializeField]
-    private Button spawnPlayerUnitLeftBtn;
-
-    [SerializeField] private Button spawnPlayerUnitRightBtn;
-    [SerializeField] private Button spawnEnemyUnitLeftBtn;
-    [SerializeField] private Button spawnEnemyUnitRightBtn;
-
-    private readonly Dictionary<Button, (EUnit unit, ESpawnSide side)> _buttonConfigs = new();
-
-    private void Awake()
+    public sealed class SpawnManagerUi : MonoBehaviour
     {
-        InitializeButtonConfigs();
-        Validate();
-        Subscribe();
-    }
+        public event Action<EUnit, ESpawnSide> OnUnitSpawn = delegate { };
 
-    private void InitializeButtonConfigs()
-    {
-        _buttonConfigs.Add(spawnPlayerUnitLeftBtn, (EUnit.Player, ESpawnSide.Left));
-        _buttonConfigs.Add(spawnPlayerUnitRightBtn, (EUnit.Player, ESpawnSide.Right));
-        _buttonConfigs.Add(spawnEnemyUnitLeftBtn, (EUnit.Enemy, ESpawnSide.Left));
-        _buttonConfigs.Add(spawnEnemyUnitRightBtn, (EUnit.Enemy, ESpawnSide.Right));
-    }
+        [Header("Spawn Buttons")]
+        [SerializeField] private Button spawnPlayerUnitLeftBtn;
+        [SerializeField] private Button spawnPlayerUnitRightBtn;
+        [SerializeField] private Button spawnEnemyUnitLeftBtn;
+        [SerializeField] private Button spawnEnemyUnitRightBtn;
 
-    private void Subscribe()
-    {
-        foreach (var (button, config) in _buttonConfigs)
-            button.onClick.AddListener(() => OnUnitSpawn?.Invoke(config.unit, config.side));
-    }
+        private readonly Dictionary<Button, (EUnit unit, ESpawnSide side)> _buttonConfigs = new();
 
-    private void Unsubscribe()
-    {
-        foreach (var (button, config) in _buttonConfigs)
-            button.onClick.RemoveListener(() => OnUnitSpawn?.Invoke(config.unit, config.side));
-    }
+        private void Awake()
+        {
+            InitializeButtonConfigs();
+            Validate();
+            Subscribe();
+        }
 
-    private void OnDestroy() => Unsubscribe();
+        private void InitializeButtonConfigs()
+        {
+            _buttonConfigs.Add(spawnPlayerUnitLeftBtn, (EUnit.Player, ESpawnSide.Left));
+            _buttonConfigs.Add(spawnPlayerUnitRightBtn, (EUnit.Player, ESpawnSide.Right));
+            _buttonConfigs.Add(spawnEnemyUnitLeftBtn, (EUnit.Enemy, ESpawnSide.Left));
+            _buttonConfigs.Add(spawnEnemyUnitRightBtn, (EUnit.Enemy, ESpawnSide.Right));
+        }
 
-    private void Validate()
-    {
-        var messages = new List<string>();
+        private void Subscribe()
+        {
+            foreach (var (button, config) in _buttonConfigs)
+                button.onClick.AddListener(() => OnUnitSpawn?.Invoke(config.unit, config.side));
+        }
 
-        if (!spawnPlayerUnitLeftBtn)
-            messages.Add("No spawnPlayerUnitLeftBtn is assigned.");
+        private void Unsubscribe()
+        {
+            foreach (var (button, config) in _buttonConfigs)
+                button.onClick.RemoveListener(() => OnUnitSpawn?.Invoke(config.unit, config.side));
+        }
 
-        if (!spawnPlayerUnitRightBtn)
-            messages.Add("No spawnPlayerUnitRightBtn is assigned.");
+        private void OnDestroy() => Unsubscribe();
 
-        if (!spawnEnemyUnitLeftBtn)
-            messages.Add("No spawnEnemyUnitLeftBtn is assigned.");
+        private void Validate()
+        {
+            var messages = new List<string>();
 
-        if (!spawnEnemyUnitRightBtn)
-            messages.Add("No spawnEnemyUnitRightBtn is assigned.");
+            if (!spawnPlayerUnitLeftBtn)
+                messages.Add("No spawnPlayerUnitLeftBtn is assigned.");
 
-        if (messages.Count <= 0)
-            return;
+            if (!spawnPlayerUnitRightBtn)
+                messages.Add("No spawnPlayerUnitRightBtn is assigned.");
 
-        Debug.LogError(string.Join("\n", messages), this);
-        enabled = false;
+            if (!spawnEnemyUnitLeftBtn)
+                messages.Add("No spawnEnemyUnitLeftBtn is assigned.");
+
+            if (!spawnEnemyUnitRightBtn)
+                messages.Add("No spawnEnemyUnitRightBtn is assigned.");
+
+            if (messages.Count <= 0)
+                return;
+
+            Debug.LogError(string.Join("\n", messages), this);
+            enabled = false;
+        }
     }
 }

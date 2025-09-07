@@ -1,28 +1,32 @@
 ﻿using System;
+using Data.Enums;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = nameof(SpawnPointsConfig), menuName = "Config/" + nameof(SpawnPointsConfig), order = 1)]
-public class SpawnPointsConfig : ScriptableObject
+namespace Data.Configs
 {
-    [SerializeField] private Transform leftEnemyPoint;
-    [SerializeField] private Transform rightEnemyPoint;
-    [SerializeField] private Transform leftPlayerPoint;
-    [SerializeField] private Transform rightPlayerPoint;
-    [SerializeField] private Transform basePoint;
-
-    private void OnValidate()
+    [CreateAssetMenu(fileName = nameof(SpawnPointsConfig), menuName = "Config/" + nameof(SpawnPointsConfig), order = 1)]
+    public class SpawnPointsConfig : ScriptableObject
     {
-        if (!leftEnemyPoint || !rightEnemyPoint || !leftPlayerPoint || !rightPlayerPoint || !basePoint)
-            throw new Exception("All or some spawn points are not assigned. " + name);
-    }
+        [SerializeField] private Transform leftEnemyPoint;
+        [SerializeField] private Transform rightEnemyPoint;
+        [SerializeField] private Transform leftPlayerPoint;
+        [SerializeField] private Transform rightPlayerPoint;
+        [SerializeField] private Transform basePoint;
 
-    public Vector3 GetSpawnPoint(EUnit unitType, ESpawnSide spawnSide) =>
-        unitType switch
+        private void OnValidate()
         {
-            EUnit.Player => spawnSide == ESpawnSide.Left ? leftPlayerPoint.position : rightPlayerPoint.position,
-            EUnit.Enemy => spawnSide == ESpawnSide.Left ? leftEnemyPoint.position : rightEnemyPoint.position,
-            _ => throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null)
-        };
+            if (!leftEnemyPoint || !rightEnemyPoint || !leftPlayerPoint || !rightPlayerPoint || !basePoint)
+                throw new Exception("All or some spawn points are not assigned. " + name);
+        }
 
-    public Vector3 GetBaseSpawnPoint() => basePoint.position;
+        public Vector3 GetSpawnPoint(EUnit unitType, ESpawnSide spawnSide) =>
+            unitType switch
+            {
+                EUnit.Player => spawnSide == ESpawnSide.Left ? leftPlayerPoint.position : rightPlayerPoint.position,
+                EUnit.Enemy => spawnSide == ESpawnSide.Left ? leftEnemyPoint.position : rightEnemyPoint.position,
+                _ => throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null)
+            };
+
+        public Vector3 GetBaseSpawnPoint() => basePoint.position;
+    }
 }

@@ -1,6 +1,9 @@
-﻿public enum EFaceDirection
+﻿namespace Data.Enums
 {
-    NotSet = -1,
-    Right = 0,
-    Left = 1
+    public enum EFaceDirection
+    {
+        NotSet = -1,
+        Right = 0,
+        Left = 1
+    }
 }

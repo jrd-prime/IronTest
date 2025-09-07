@@ -3,11 +3,12 @@ using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Configs;
+using MonoItems;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Components
 {
-    public sealed class Weapon : MonoBehaviour
+    public class Weapon : MonoBehaviour
     {
         [SerializeField] private Transform muzzle;
         [SerializeField] private BulletItem bulletPrefab;
@@ -28,7 +29,15 @@ namespace DefaultNamespace
             _isInitialized = true;
         }
 
-        public async Task TryFireAsync(Vector3 direction, LayerMask mask, Vector2 forwardDirection)
+        public void Fire(LayerMask layerMask, float distanceToTarget, Vector2 forwardDirection)
+        {
+            if (distanceToTarget > _weaponConfig.Range)
+                return;
+
+            _ = TryFireAsync(forwardDirection, layerMask);
+        }
+
+        private async Task TryFireAsync(Vector3 direction, LayerMask mask)
         {
             if (!_isInitialized || _isReloading || _fireCooldown > 0 || _currentAmmo <= 0)
             {
@@ -39,7 +48,7 @@ namespace DefaultNamespace
 
             try
             {
-                var bulletInstance = await CreateBullet(forwardDirection);
+                var bulletInstance = await CreateBullet(direction);
 
                 if (!bulletInstance)
                     return;

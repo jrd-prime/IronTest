@@ -1,5 +1,8 @@
-﻿public enum EUnit
+﻿namespace Data.Enums
 {
-    Player = 0,
-    Enemy = 1
+    public enum EUnit
+    {
+        Player = 0,
+        Enemy = 1
+    }
 }

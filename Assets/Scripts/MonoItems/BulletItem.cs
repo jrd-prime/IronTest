@@ -1,15 +1,18 @@
 ﻿using Data.Configs;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace MonoItems
 {
+    [RequireComponent(typeof(Collider2D))]
     public sealed class BulletItem : MonoBehaviour
     {
+        [SerializeField] private float lifeTimeSec = 3f;
         private float _speed;
         private LayerMask _targetMask;
         private float _damage;
         private bool _isInitialized;
         private Vector3 _direction;
+        private Collider2D _coll;
 
         public void Launch(BulletConfig data, Vector3 direction, LayerMask mask)
         {
@@ -17,8 +20,12 @@ namespace DefaultNamespace
             _damage = data.Damage;
             _direction = direction;
             _targetMask = mask;
+            _coll = GetComponent<Collider2D>();
             _isInitialized = true;
+            Invoke(nameof(DestroySelf), lifeTimeSec);
         }
+
+        private void DestroySelf() => Destroy(gameObject);
 
         private void FixedUpdate()
         {
@@ -36,6 +43,7 @@ namespace DefaultNamespace
             if (damageable == null)
                 return;
 
+            _coll.enabled = false;
             damageable.TakeDamage(_damage);
             Destroy(gameObject);
         }
