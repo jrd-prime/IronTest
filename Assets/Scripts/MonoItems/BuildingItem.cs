@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Components;
 using Data.Configs;
+using Interfaces;
 using UnityEngine;
 
 namespace MonoItems

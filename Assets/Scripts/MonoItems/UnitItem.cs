@@ -5,6 +5,7 @@ using Components;
 using Data;
 using Data.Configs;
 using Data.Enums;
+using Interfaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

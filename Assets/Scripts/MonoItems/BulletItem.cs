@@ -1,4 +1,5 @@
 ﻿using Data.Configs;
+using Interfaces;
 using UnityEngine;
 
 namespace MonoItems
